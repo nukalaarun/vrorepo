@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="515be20a-40db-4b41-b0cd-ad63563e85fe" editor-version="2.0" version="0.0.2" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
     <display-name>Hello World Workflow</display-name>
-    <description>Hello World Workflow</description>
+    <description>Hello World Workflows</description>
     <position y="50.0" x="100.0"/>
     <input/>
     <output/>
