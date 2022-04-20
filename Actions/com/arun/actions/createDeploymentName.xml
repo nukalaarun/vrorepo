@@ -22,7 +22,7 @@ var deploymentName = "";
 /*if (itemName != "" && itemName != null && envName != null && envName != "") { */
 if (itemName != "" && itemName != null ) {
     var date = new Date();
-    deploymentName = itemName + " -" + "- (" + date.toISOString() + ")";
+    deploymentName = itemName + " -" + date.toISOString();
     System.debug("Returning deploymentName: " + deploymentName);
 }
 
