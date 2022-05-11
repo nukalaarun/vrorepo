@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="e37fc3aa-b98f-4519-b8fb-25d884e92b1d" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>vmnic</display-name>
+    <position y="50.0" x="100.0"/>
+    <input/>
+    <output/>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="300.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item0" type="task" comparator="0">
+        <display-name>Scriptable task</display-name>
+        <runtime>powercli:11-powershell-6.2</runtime>
+        <script encoded="false">function Handler($context, $inputs) {
+   $vcList = @("vc.cap.org");
+   $user = @("arun@.cap.org");
+   $password = @("VMware123!"); 
+#$securestringpassword = ConvertTo-SecureString $password
+Write-Host ("VC Password is " , $password)
+foreach($vc in $vcList){
+    #Connect-VIServer -Server $vc -User $user -Password $password
+    Connect-VIServer -Server $vc -User $user -Password $password
+    Write-Host(" Connection successful to ",$vc)
+    #Business Logic Block
+    #----------------------------------------------------
+    #Fetching all the VMs
+    $vmList=Get-VM
+    #Looping through each VM
+    $output=foreach($vm in $vmList){
+        #Fetching No. of NIcs per VM
+        $niclist=$vm.ExtensionData.Guest.Net
+        #Looping through each NIC
+        foreach($nic in $niclist){
+            #Fetching VM Power state
+            $powerState=$vm.PowerState
+            
+            #Fetching IPv4 or IPv6 address
+            $Ip1=$nic[0].IpAddress[0]#IPv6
+            $Ip2=$nic[0].IpAddress[1]#IPv4
+            
+            # VM's NIC connected State
+            $nicStatus=$nic[0].Connected
+            #Setting columns to print in CSV file
+            New-Object -TypeName PSObject -Property @{ vCenter_Name = $vc; VM_Name = $vm ; VM_Power_State=$powerState; VM_NIC_IP1=$Ip1;VM_NIC_IP2=$Ip2; VM_NIC_Status=$nicStatus}
+        }
+    }
+    $output | export-csv G:\TestScript\A_VM_NIC_Status_List.csv -NoTypeInformation -Append
+    #----------------------------------------------------
+    Disconnect-VIServer -Server $vc -Confirm:$false
+    Write-Host($vc," : Disconnected Successfully.")
+    Write-Host("******************************************")
+}
+}</script>
+        <in-binding/>
+        <out-binding/>
+        <description>Simple task with custom script capability.</description>
+        <position y="60.0" x="160.0"/>
+    </workflow-item>
+</ns2:workflow>
