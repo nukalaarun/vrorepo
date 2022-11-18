@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getVra7Vm" result-type="Any" api-version="6.0.0" id="43c7a305-d765-412b-830a-386f0bfd52f0" version="0.0.0" allowed-operations="vfe" category-name="com.vmware.pscoe.rba.migration">
+  <param n="vra7RestHost" t="REST:RESTHost"><![CDATA[]]></param>
+  <param n="vmName" t="string"><![CDATA[]]></param>
+  <param n="tenant" t="string"><![CDATA[]]></param>
+  <param n="username" t="string"><![CDATA[]]></param>
+  <param n="password" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[var RestClient = System.getModule("com.vmware.pscoe.library.rest").RestClient();
+
+var restClient = new RestClient(vra7RestHost);
+
+var json = null;
+var httpData = null;
+
+var url = "/identity/api/tokens";
+var params = [];
+
+var content = {
+	username: username,
+	password: password,
+	tenant: tenant
+}
+
+
+try {
+	httpData = restClient.post(url, params, content, {
+		returnResponseObjectForReal: true,
+		headers: {
+			"Accept": "application/json"
+		}
+	});
+} catch (e) {
+	throw new Error("Unable to authenticate in vRA 7 REST API. Error: " + e);
+}
+
+try {
+	json = JSON.parse(httpData.contentAsString);
+} catch (e) {
+	throw new Error("Unable to parse bearer token for vRA 7 authentication. Error: " + e);
+}
+
+var token = json.id;
+
+var filter = {
+	name: vmName,
+	"resourceType/id": "Infrastructure.Virtual",
+	"resourceType/name": "Virtual Machine"
+};
+
+var filterStr = System.getModule("com.vmware.pscoe.rba.migration").constructVraApiFilter(filter);
+
+
+url = "/catalog-service/api/consumer/resources?$filter={filter}"
+
+try {
+	httpData = restClient.get(url, [filterStr], {
+		returnResponseObjectForReal: true,
+		headers: {
+			"Accept": "application/json",
+			"Authorization": "Bearer " + token
+		}
+	});
+} catch (e) {
+	throw new Error("Unable to GET VM data from vRA 7 REST service. Error: " + e);
+}
+
+
+try {
+	json = JSON.parse(httpData.contentAsString);
+
+	var vms = json.content;
+	
+    //System.log("getVra7Vm: vms " + JSON.stringify(vms, null, 4));
+	if (vms.length > 1) {
+		System.log("More than one vRA 7 VM found for name: " + vmName + ". Using the first found VM");
+	}
+	
+	if (vms.length < 1) {
+		System.log("Unable to find vRA 7 VM found with name: " + vmName + ". Skipping this VM");
+		return null;
+	}
+	
+	return vms[0];
+} catch (e) {
+	throw new Error("Unable to parse vRA 7 response. Error: " + e);
+}]]></script>
+</dunes-script-module>

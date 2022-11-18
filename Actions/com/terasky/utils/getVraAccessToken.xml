@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getVraAccessToken" result-type="string" api-version="6.0.0" id="5161b958-c23c-49e3-938a-dcb47398729d" version="1.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="username" t="string"><![CDATA[vra admin username]]></param>
+  <param n="password" t="SecureString"><![CDATA[vra admin password]]></param>
+  <param n="restHost" t="REST:RESTHost"><![CDATA[vra rest host object]]></param>
+  <script encoded="false"><![CDATA[// Getting token
+
+var uri = "/csp/gateway/am/api/login?access_token";
+var method = "POST";
+var body = '{"username":"' + username +'","password":"' + password + '"}';
+var request = restHost.createRequest(method, uri, body);
+request.setHeader("Content-Type" , "application/json");
+var response = request.execute();
+
+
+// request validation - 200 range
+if(response.statusCode.toString().charAt(0) != "2")
+{
+    throw "Error occured while request new vRA token"
+}
+
+//convert REST output to string
+var tokenInfo = JSON.parse(response.contentAsString);
+
+//Save Barear token into varible
+var token = tokenInfo.refresh_token
+
+// Validate the token string
+if(token == null || token == "")
+{
+    throw "Error occured while requesting a token"
+}
+
+var uri = "/iaas/api/login";
+var method = "POST";
+var body = '{"refreshToken":"' + token + '"}';
+var request = restHost.createRequest(method, uri, body);
+request.setHeader("Content-Type" , "application/json");
+var response = request.execute();
+
+
+// request validation - 200 range
+if(response.statusCode.toString().charAt(0) != "2")
+{
+    throw "Error occured while request new vRA token"
+}
+
+//convert REST output to string
+var tokenInfo = JSON.parse(response.contentAsString);
+
+//Save Barear token into varible
+var token = tokenInfo.token
+
+// Validate the token string
+if(token == null || token == "")
+{
+    throw "Error occured while requesting a token"
+}
+
+// return the token
+return token;
+System.log("vRA Token has been collected successfully")]]></script>
+</dunes-script-module>

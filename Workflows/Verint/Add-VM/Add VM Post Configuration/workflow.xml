@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item6" object-name="workflow:name=generic" id="7d026763-05f3-467b-a9cd-768ce225dcaf" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Add VM Post Configuration]]></display-name>
+  <error-handler name="item5" throw-bind-name="err_0">
+    <position y="115.0" x="180.0"/>
+  </error-handler>
+  <position y="60.0" x="180.0"/>
+  <input>
+    <param name="inputProperties" type="Properties"/>
+  </input>
+  <attrib name="ceAddVmAudting" type="ConfigurationElement" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='929837bd-5866-45f6-bf2f-c276009fad24'&dunesName='ConfigurationElement']]></value>
+  </attrib>
+  <attrib name="deploymentId" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vmName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vm" type="VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="err_0" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="sleepTime" type="number" read-only="false">
+    <value encoded="n"><![CDATA[30.0]]></value>
+  </attrib>
+  <attrib name="blueprintName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="jenkinsMaster" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="jenkinsTunnel" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="runByGetEaaS" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+  </attrib>
+  <attrib name="desktopType" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="deploymentName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="jsonString" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="60.0" x="1220.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item8" type="task">
+    <display-name><![CDATA[Retrieve VM Name And Deployment ID]]></display-name>
+    <script encoded="false"><![CDATA[deploymentId = inputProperties.deploymentId
+var deploymentProperties = ceAddVmAudting.getAttributeWithKey(deploymentId).value
+vmName = deploymentProperties.vmName
+desktopType = deploymentProperties.desktopType
+deploymentName = inputProperties.deploymentName
+blueprintName = System.getModule("com.terasky.utils").getBlueprintNameById(inputProperties.blueprintId);
+
+
+
+if(vmName == null || vmName == "" || desktopType == null || desktopType == "")
+{
+    throw "Unable to retrieve VM name for the following deployment ID: " + deploymentId
+}
+
+]]></script>
+    <in-binding>
+      <bind name="inputProperties" type="Properties" export-name="inputProperties"/>
+      <bind name="ceAddVmAudting" type="ConfigurationElement" export-name="ceAddVmAudting"/>
+    </in-binding>
+    <out-binding>
+      <bind name="deploymentId" type="string" export-name="deploymentId"/>
+      <bind name="vmName" type="string" export-name="vmName"/>
+      <bind name="desktopType" type="string" export-name="desktopType"/>
+      <bind name="deploymentName" type="string" export-name="deploymentName"/>
+      <bind name="blueprintName" type="string" export-name="blueprintName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="70.0" x="400.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item9" type="task" script-module="com.terasky.utils/getVmObjectByName">
+    <display-name><![CDATA[Get VM Object]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.terasky.utils").getVmObjectByName(vmName);
+]]></script>
+    <in-binding>
+      <bind name="vmName" type="string" export-name="vmName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="VC:VirtualMachine" export-name="vm"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="70.0" x="660.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item0" type="task">
+    <display-name><![CDATA[Remove Audit]]></display-name>
+    <script encoded="false"><![CDATA[ceAddVmAudting.removeAttributeWithKey(deploymentId)]]></script>
+    <in-binding>
+      <bind name="ceAddVmAudting" type="ConfigurationElement" export-name="ceAddVmAudting"/>
+      <bind name="deploymentId" type="string" export-name="deploymentId"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="70.0" x="1050.0"/>
+  </workflow-item>
+  <workflow-item name="item4" throw-bind-name="err_0" type="end" end-mode="1">
+    <in-binding/>
+    <position y="115.0" x="440.0"/>
+  </workflow-item>
+  <workflow-item name="item5" out-name="item4" type="task">
+    <display-name><![CDATA[Remove Audting]]></display-name>
+    <script encoded="false"><![CDATA[var deploymentId = inputProperties.deploymentId
+if(ceAddVmAudting.getAttributeWithKey(deploymentId) != null)
+{
+    ceAddVmAudting.removeAttributeWithKey(deploymentId)
+}]]></script>
+    <in-binding>
+      <bind name="inputProperties" type="Properties" export-name="inputProperties"/>
+      <bind name="ceAddVmAudting" type="ConfigurationElement" export-name="ceAddVmAudting"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="125.0" x="270.0"/>
+  </workflow-item>
+  <workflow-item name="item6" prototype-id="sleep" out-name="item1" content-mode="x" type="task">
+    <display-name><![CDATA[Sleep]]></display-name>
+    <script encoded="false"><![CDATA[//Auto-generated script
+if ( sleepTime !== null )  {
+	System.sleep(sleepTime * 1000);
+}else  {
+	throw "'sleepTime' is NULL"; 
+}]]></script>
+    <in-binding>
+      <bind name="sleepTime" type="number" export-name="sleepTime">
+        <description><![CDATA[Time to sleep in seconds]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Sleep a given number of seconds.]]></description>
+    <position y="70.0" x="270.0"/>
+  </workflow-item>
+  <workflow-item name="item7" out-name="item3" type="link" linked-workflow-id="bdd947e5-c157-465a-bcd0-bf6d0f12ee1f">
+    <display-name><![CDATA[Configure Jenkins]]></display-name>
+    <in-binding>
+      <bind name="blueprintName" type="string" export-name="blueprintName"/>
+      <bind name="jenkinsMaster" type="string" export-name="jenkinsMaster"/>
+      <bind name="jenkinsTunnel" type="string" export-name="jenkinsTunnel"/>
+      <bind name="runByGetEaaS" type="boolean" export-name="runByGetEaaS"/>
+      <bind name="desktopType" type="string" export-name="desktopType"/>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm"/>
+      <bind name="deploymentName" type="string" export-name="deploymentName"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[ ]]></description>
+    <position y="70.0" x="920.0"/>
+  </workflow-item>
+  <workflow-item name="item8" out-name="item2" type="task" script-module="com.verint.utils/getDeploymentJsonString">
+    <display-name><![CDATA[Get EAAS JSON]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.verint.utils").getDeploymentJsonString(deploymentId);
+]]></script>
+    <in-binding>
+      <bind name="deploymentId" type="string" export-name="deploymentId"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="string" export-name="jsonString"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="70.0" x="540.0"/>
+  </workflow-item>
+  <workflow-item name="item9" out-name="item7" type="task">
+    <display-name><![CDATA[Retrieve Jenkins Info]]></display-name>
+    <script encoded="false"><![CDATA[jsonString = JSON.parse(jsonString)
+
+jenkinsMaster = jsonString.jenkinsMaster
+jenkinsTunnel = jsonString.jenkinsTunnel]]></script>
+    <in-binding>
+      <bind name="jsonString" type="string" export-name="jsonString"/>
+    </in-binding>
+    <out-binding>
+      <bind name="jenkinsMaster" type="string" export-name="jenkinsMaster"/>
+      <bind name="jenkinsTunnel" type="string" export-name="jenkinsTunnel"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="70.0" x="790.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="lockOrWait" result-type="void" api-version="6.0.0" id="d0571ae1-625b-496f-923a-092925db363c" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="lockId" t="string"><![CDATA[]]></param>
+  <param n="lockOwner" t="string"><![CDATA[]]></param>
+  <param n="timeoutMinutes" t="number"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[var tries = 12 * timeoutMinutes
+var triesCounter = 0
+var lock = LockingSystem.lock(lockId,lockOwner)
+System.log(lock)
+while(lock == false)
+{
+    lock = LockingSystem.lock(lockId,lockOwner)
+    if(lock == false)
+    {
+        if(triesCounter >= tries)
+        {
+            throw "Timeout exceeded to " + timeoutMinutes + " minutes - locking system failed"
+        }
+        else
+        {
+            triesCounter++
+        }
+        System.sleep(1000 * 5)
+    }
+    else
+    {
+        break;
+    }
+}]]></script>
+</dunes-script-module>

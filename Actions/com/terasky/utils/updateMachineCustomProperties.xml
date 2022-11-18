@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="updateMachineCustomProperties" result-type="string" api-version="6.0.0" id="15029990-78bf-4d7b-97b4-729577eb5666" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="customProperties" t="Properties"><![CDATA[]]></param>
+  <param n="resourceId" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[var pathUri = "/iaas/api/machines/" + resourceId
+var payload = {
+    "customProperties": customProperties
+}
+payload = JSON.stringify(payload)
+System.getModule("com.terasky.utils").vraPatchOperation(pathUri,payload);]]></script>
+</dunes-script-module>

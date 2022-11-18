@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getLogger" result-type="Any" api-version="6.0.0" id="com.vmware.pscoe.library.logging.getLogger" version="3.3.0" allowed-operations="vfe" category-name="com.vmware.pscoe.library.logging">
+  <param n="name" t="Any"><![CDATA[]]></param>
+  <param n="options" t="Any"><![CDATA[]]></param>
+  <param n="configPath" t="Any"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[var Logger	= System.getModule("com.vmware.pscoe.library.logging").Logger();
+return new Logger(name, options, configPath);
+]]></script>
+</dunes-script-module>

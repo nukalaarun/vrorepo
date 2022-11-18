@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="createDeploymentFromCatalogItem" result-type="string" api-version="6.0.0" id="20fb730f-1f8a-4f5f-b390-9e588a3db5ae" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="catalogId" t="string"><![CDATA[]]></param>
+  <param n="deploymentName" t="string"><![CDATA[]]></param>
+  <param n="projectId" t="string"><![CDATA[]]></param>
+  <param n="desktopType" t="string"><![CDATA[]]></param>
+  <param n="desktopCount" t="number"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[pathUri = "/catalog/api/items/" + catalogId + "/request"
+var payload = {
+  "deploymentName": deploymentName,
+  "inputs": {
+      "win7s":0,
+      "win7c":0,
+      "win10s":0,
+      "win10c":0
+  },
+  "projectId": projectId
+}
+payload.inputs[desktopType] = desktopCount
+var content = System.getModule("com.terasky.utils").vraPostOperation(pathUri,JSON.stringify(payload));
+content = JSON.parse(content)
+return content[0].deploymentId]]></script>
+</dunes-script-module>

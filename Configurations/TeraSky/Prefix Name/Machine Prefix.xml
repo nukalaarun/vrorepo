@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config-element id="9ed1bbd5-2153-47fd-9811-e95cce887fbe" version="0.0.0">
+  <display-name><![CDATA[Machine Prefix]]></display-name>
+  <atts>
+    <att name="desktop-" type="Number" read-only="false">
+      <value encoded="n"><![CDATA[45.0]]></value>
+    </att>
+    <att name="consolidate-" type="Number" read-only="false">
+      <value encoded="n"><![CDATA[31.0]]></value>
+    </att>
+    <att name="dc-" type="Number" read-only="false">
+      <value encoded="n"><![CDATA[20.0]]></value>
+    </att>
+  </atts>
+</config-element>

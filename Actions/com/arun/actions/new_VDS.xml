@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="new_VDS" result-type="Properties" api-version="6.0.0" id="b426c919-0f55-4c71-aae2-d52f4b326330" version="0.1.0" category-name="com.arun.actions" memory-limit="300000000">
+  <runtime><![CDATA[powercli:12-powershell-7.1]]></runtime>
+  <param n="vdsname" t="string"><![CDATA[]]></param>
+  <param n="vdsversion" t="string"><![CDATA[]]></param>
+  <param n="vCentername" t="string"><![CDATA[]]></param>
+  <param n="vCenterusername" t="string"><![CDATA[]]></param>
+  <param n="Password" t="SecureString"><![CDATA[]]></param>
+  <param n="datacenter_name" t="string"><![CDATA[]]></param>
+  <param n="mtu" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[# $m = Get-Module -ListAvailable -Name VMware.VimAutomation.Core
+# $impot = import-module -ModuleInfo $m
+function handler($context, $inputs) {
+    #_______________________Debug and Verbose Mode Off____________________________________
+    Set-PSDebug -Off
+    $DebugPreference="SilentlyContinue"
+    $VerbosePreference="SilentlyContinue"
+    #_______________________Debug and Verbose Mode Off____________________________________
+    #_______________________Get Secrets and Inputs____________________________________'
+    $vc = $inputs.vCentername
+    $username = $inputs.vCenterusername
+    $password = $inputs.Password
+    $vdsname = $inputs.vdsname
+    $vdsversion = $inputs.vdsversion
+    $dc= $inputs.datacenter_name
+    $mtu = $inputs.mtu
+    #_______________________Get Secrets and Inputs____________________________________'
+    $connection = Connect-VIServer -Server $vc -User $username -Password $password -Force
+    $location=Get-Datacenter -Name $dc
+    $vds= New-VDSwitch -Name $vdsname -Location $location -Mtu $mtu -Version $vdsversion
+    $output = @{"vdsname"=$vds.name}
+    return $output
+
+}
+]]></script>
+</dunes-script-module>

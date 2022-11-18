@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="createOnboardingPlan" result-type="string" api-version="6.0.0" id="75bce346-06a7-46c8-9854-6775e9134494" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="onboardingPlanName" t="string"><![CDATA[]]></param>
+  <param n="projectId" t="string"><![CDATA[]]></param>
+  <param n="cloudAccountId" t="string"><![CDATA[]]></param>
+  <param n="customProperties" t="Properties"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[
+
+pathUri = "/relocation/onboarding/plan"
+
+var payload = {
+    "description": "Created by automation",
+    "name": onboardingPlanName,
+    "projectId": projectId,
+    "endpointIds": [
+        cloudAccountId
+    ],
+    "customProperties": customProperties
+}
+var content = System.getModule("com.terasky.utils").vraPostOperation(pathUri,JSON.stringify(payload));
+System.log(content)
+content = JSON.parse(content)
+return content.documentSelfLink
+
+]]></script>
+</dunes-script-module>

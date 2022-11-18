@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getDeployments" result-type="Array/Properties" api-version="6.0.0" id="719da539-e18a-48f4-8f4d-7785b2aa4582" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <script encoded="false"><![CDATA[var deployments = []
+var page = 0
+// get deployment by searching based of the name
+var pathUri = "/deployment/api/deployments?size=9999&page=" + page.toString()
+var content = System.getModule("com.terasky.utils").vraGetOperation(pathUri);
+content = JSON.parse(content)
+ 
+var totalPages = content.totalPages
+System.log("total pages: " + totalPages)
+for each(var deployment in content.content)
+{
+    deployments.push(deployment)
+}
+
+System.log("deployments: " + deployments.length)
+System.log("page: " + page)
+if(totalPages > 1)
+{
+    while((page + 1) < totalPages)
+    {
+        page++
+        var pathUri = "/deployment/api/deployments?size=9999&page=" + page.toString()
+        var content = System.getModule("com.terasky.utils").vraGetOperation(pathUri);
+        content = JSON.parse(content)
+        for each(var deployment in content.content)
+        {
+            deployments.push(deployment)
+        }
+        System.log("deployments: " + deployments.length)
+        System.log("page: " + page)
+    }
+    
+}
+
+
+return deployments
+]]></script>
+</dunes-script-module>

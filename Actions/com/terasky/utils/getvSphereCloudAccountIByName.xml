@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getvSphereCloudAccountIByName" result-type="string" api-version="6.0.0" id="303c13de-f0e9-4f62-b217-5c9e45e4d7fe" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="cloudAccountName" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[pathUri = "/iaas/api/cloud-accounts-vsphere"
+var content = System.getModule("com.terasky.utils").vraGetOperation(pathUri);
+var content = JSON.parse(content)
+for each(var account in content.content)
+{
+    if(account.hostName.toLowerCase() == cloudAccountName.toLowerCase())
+    {
+        return account.id
+    }
+}
+throw "Unable to retrieve project id of: " + cloudAccountName]]></script>
+</dunes-script-module>

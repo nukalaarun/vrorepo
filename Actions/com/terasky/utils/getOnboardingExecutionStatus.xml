@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getOnboardingExecutionStatus" result-type="string" api-version="6.0.0" id="d0212d21-895d-480b-b926-f5c43e205790" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="executionLink" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[
+var content = System.getModule("com.terasky.utils").vraGetOperation(executionLink);
+System.log(content)
+var content = JSON.parse(content)
+return content.subStage
+
+]]></script>
+</dunes-script-module>

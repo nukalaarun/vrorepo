@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="validationCheckForSaveToCatalogForm" result-type="string" api-version="6.0.0" id="6ac33119-48c2-4145-960c-20d0f8055b94" version="2.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="blueprintName" t="string"><![CDATA[the blueprint name being created]]></param>
+  <script encoded="false"><![CDATA[// if blueprint name is empty dont validate yet
+if(blueprintName == null || blueprintName == "")
+{
+    return "Please Enter Valid Blueprint Name";
+}
+
+
+    // the VRA url query requires replacing spaces with a + symbol due to encoding
+    blueprintName = blueprintName.replace(/ /g,"+");
+    System.log(blueprintName);
+    
+    // querying the rest api for a blueprint with the exact name inputted
+    var uri = "/blueprint/api/blueprints/?name=" + blueprintName;
+    var payload = System.getModule("com.terasky.utils").vraGetOperation(uri);
+    payload = JSON.parse(payload)
+    // if no results are returned the blueprint name is good as it doesnt already exist
+    if(payload.totalElements == 0)
+    {
+        System.log("Name is valid");
+    }
+    // otherwise we have an issue and are throwing an error as the blueprint name must be unique
+    else
+    {
+        return "That name is already in use";
+    }
+]]></script>
+</dunes-script-module>

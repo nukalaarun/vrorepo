@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getVmObjectByName" result-type="VC:VirtualMachine" api-version="6.0.0" id="31cf0a11-e85f-421e-bcdf-ebf6c0d95906" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="vmName" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[var vms = Server.findAllForType("VC:VirtualMachine",name=vmName)
+if(vms.length == 1)
+{
+    if(vms[0].name.toLowerCase() == vmName.toLowerCase())
+    {
+        return vms[0]
+    }
+    else
+    {
+        for each(var vm in vms)
+        {
+            if(vm.name.toLowerCase() == vmName.toLowerCase())
+            {
+                return vm
+            }
+        }
+    }
+}
+throw "Unable to retrieve VM object with the following name: " + vmName]]></script>
+</dunes-script-module>

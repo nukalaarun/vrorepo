@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='896ee019-7365-4206-b929-b19864201d06'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='46c3298c-aeef-4fe0-a369-321412dc9ce5'&dunesName='Action'&name='getCatalogItemIdByName'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='bbe39a5e-8e3f-43c0-a692-c702a048942f'&dunesName='Action'&name='vraGetOperation'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='20fb730f-1f8a-4f5f-b390-9e588a3db5ae'&dunesName='Action'&name='createDeploymentFromCatalogItem'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='614d2e92-6293-40c6-935a-7d695200976f'&dunesName='Action'&name='vraPostOperation'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='9dff916f-d4d4-4ddb-ad96-888c4c0ba4c0'&dunesName='Action'&name='getDeploymentCreationRequestId'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='929ac397-da5b-485e-91eb-5a43f9adc9e3'&dunesName='Action'&name='waitForDeploymentRequestStatus'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='e94f3cfd-d2f9-40d0-bd24-d08c193adc62'&dunesName='Action'&name='executeDay2ActionExtendLease'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='491ea463-9bb3-41bb-b729-9fb4e8601559'&dunesName='Action'&name='executeDay2ActionChangeOwner'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='1d858829-5976-4e83-87d5-34cb583b5cfc'&dunesName='Action'&name='getProjectIdByName'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='063fe738-1bb2-4138-92b1-fc32bd200110'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='d0571ae1-625b-496f-923a-092925db363c'&dunesName='Action'&name='lockOrWait'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='e3a6daa8-e15a-408b-9f09-5a0f4aa34469'&dunesName='Action'&name='unlockOperation'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='929837bd-5866-45f6-bf2f-c276009fad24'&dunesName='ConfigurationElement']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='9ed1bbd5-2153-47fd-9811-e95cce887fbe'&dunesName='ConfigurationElement']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='866a9b31-4f73-4f2c-8797-dc084e91f7ac'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='fdb1d5c5-cba9-4596-80db-891a3cc96c46'&dunesName='Action'&name='getDeploymentCreatedTime'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='078d5815-1e63-4469-8443-2c1b0ca54080'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='4303308a-26e0-4901-9174-e3ccfbf7d79b'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='6ac33119-48c2-4145-960c-20d0f8055b94'&dunesName='Action'&name='validationCheckForSaveToCatalogForm'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='5161b958-c23c-49e3-938a-dcb47398729d'&dunesName='Action'&name='getVraAccessToken'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='c465b2da-2b10-40fe-8752-65e913aec0e8'&dunesName='Action'&name='replaceBackslashNWithNewLine'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='ab24fc08-54a5-4a51-a53c-d08bfae4ee08'&dunesName='Action'&name='replaceNewLineWithBackslashN'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='ffca38f9-e8be-4032-9311-7018cf98a283'&dunesName='Action'&name='yaml2json_py'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='76cfd0e2-2422-49de-bc5a-5a7d1a8592a2'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='117f44f1-7ab2-4eee-b1f9-7e63f022fc7b'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='09778468-61dd-460e-a80f-8476b14bab94'&dunesName='Action'&name='json2yaml_py'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/ConfigurationElement?id='e147e593-b897-492b-bf82-d31fc1e22861'&dunesName='ConfigurationElement']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='7d026763-05f3-467b-a9cd-768ce225dcaf'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='31cf0a11-e85f-421e-bcdf-ebf6c0d95906'&dunesName='Action'&name='getVmObjectByName'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='db78fdbf-353a-4f7b-9a38-246a6c897d35'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='e4773ab2-c68b-4476-92db-b48e84a48bf9'&dunesName='Action'&name='getDeploymentInputs'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='4747600f-4431-4f50-8726-2819bb1c16a1'&dunesName='Action'&name='executeDay2Action'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='40b42c13-0fab-4c36-896b-a39fd84c3d43'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='b3dbd680-b951-4cbc-be93-395c8c05b1ed'&dunesName='Action'&name='cloneVM'&category='com.vmware.library.vc.basic']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='dab6aeaa-7626-458b-89a8-5ef203ebc104'&dunesName='Action'&name='getRelocateSpec'&category='com.vmware.library.vc.vm.spec']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='9b1c674a-0376-4dee-8621-4bda7b732bc0'&dunesName='Action'&name='getCloneSpec'&category='com.vmware.library.vc.vm.spec']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='99afccd7-9fcc-4dc2-82b7-586de690364e'&dunesName='Action'&name='vim3WaitTaskEnd'&category='com.vmware.library.vc.basic']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='ef5d1e72-4d1d-414d-9a1e-3b27aa728196'&dunesName='Action'&name='getVcVmByUuid'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='BD80808080808080808080808080808053C180800122528313869552e41805bb1'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='8efc8297-a1ab-4734-9f1a-c38e715a0f0d'&dunesName='Action'&name='createSnapshot'&category='com.vmware.library.vc.vm.snapshot']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='8c2901b3-d323-4ba6-94fa-3939c15eaaac'&dunesName='Action'&name='connectVmNicToLogicalSwitch'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='973290e7-1db4-47df-92dc-70024a3c9cb9'&dunesName='Action'&name='isSupportedNic'&category='com.vmware.library.vc.vm.network']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='fbfa36c7-fae8-45d2-993a-de62ae3b511e'&dunesName='Action'&name='connectVmNicNumberToVirtualDistributedPortgroup'&category='com.vmware.library.vc.networking']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='BD80808080808080808080808080808093C380800122528313869552e41805bb1'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='734e7dc9-aa0c-4c2e-938c-a6c6daf5bb28'&dunesName='Action'&name='changeDeploymentName'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='15029990-78bf-4d7b-97b4-729577eb5666'&dunesName='Action'&name='updateMachineCustomProperties'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='e182ce6b-5c6e-4e13-a935-811e7fa882d4'&dunesName='Action'&name='vraPatchOperation'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='719da539-e18a-48f4-8f4d-7785b2aa4582'&dunesName='Action'&name='getDeployments'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='a2ed0c87-0786-40cb-bb7d-5f836344c85d'&dunesName='Action'&name='getDeploymentResources'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='8d4282ea-4df9-407c-a62b-b966cc8f3f12'&dunesName='Action'&name='getMachineCustomProperties'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='618b2733-749a-43f8-b7b0-e44e8ae71865'&dunesName='Action'&name='getBlueprintIdByName'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='d0212d21-895d-480b-b926-f5c43e205790'&dunesName='Action'&name='getOnboardingExecutionStatus'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='e3830676-7459-4c01-b173-2e6947013660'&dunesName='Action'&name='deleteOnboardingPlan'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='56b1902e-b300-4ce7-8a1a-7704e08eafe9'&dunesName='Action'&name='vraDeleteOperation'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='303c13de-f0e9-4f62-b217-5c9e45e4d7fe'&dunesName='Action'&name='getvSphereCloudAccountIByName'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='75bce346-06a7-46c8-9854-6775e9134494'&dunesName='Action'&name='createOnboardingPlan'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='89a2c272-d9fd-4e80-bab8-6a4e025abf0c'&dunesName='Action'&name='createOnboardingDeployment'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='db5dd033-1c5b-4cbe-9d30-56ac5dae6139'&dunesName='Action'&name='createOnboardingResource'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='0e002a03-f115-45a0-9715-23c1034ab8fe'&dunesName='Action'&name='executeOnboardingPlan'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='02744145-d9eb-48eb-aee7-a57978420526'&dunesName='Action'&name='executeSSHCommand'&category='com.terasky.utils']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='4f45912b-0183-4919-a56b-c0a1772d17a4'&dunesName='Action'&name='addScriptVariableToArrayOfScriptVariables'&category='com.vmware.coe.copyAndRunScriptsInGuest']]></elm>
+<used-plugin name='REST' version='2.4.1' />
+<used-plugin name='VC' version='7.0.0' />
+<used-plugin name='VRA' version='8.5.1' />
+</package>

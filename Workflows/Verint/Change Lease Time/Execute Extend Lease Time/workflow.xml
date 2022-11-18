@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item2" object-name="workflow:name=generic" id="866a9b31-4f73-4f2c-8797-dc084e91f7ac" version="0.0.1" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Execute Extend Lease Time]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="hours" type="number"/>
+    <param name="deploymentId" type="string"/>
+  </input>
+  <attrib name="oneDayTime" type="number" read-only="false">
+    <value encoded="n"><![CDATA[8.64E7]]></value>
+  </attrib>
+  <attrib name="limitDays" type="number" read-only="false">
+    <value encoded="n"><![CDATA[3.0]]></value>
+  </attrib>
+  <attrib name="deploymentCreatedTime" type="Date" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="executeRequestId" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="requestedDate" type="Date" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="wfToken" type="WorkflowToken" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="err_0" type="string" read-only="false">
+    <value encoded="n"><![CDATA[Input date is later than the maximum allowed]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="700.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item4" type="task" script-module="com.terasky.utils/getDeploymentCreatedTime">
+    <display-name><![CDATA[getDeploymentCreatedTime]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.terasky.utils").getDeploymentCreatedTime(deploymentId);
+]]></script>
+    <in-binding>
+      <bind name="deploymentId" type="string" export-name="deploymentId"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="Date" export-name="deploymentCreatedTime"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="60.0" x="200.0"/>
+  </workflow-item>
+  <workflow-item name="item3" throw-bind-name="err_0" type="end" end-mode="1">
+    <in-binding/>
+    <position y="140.0" x="340.0"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item5" type="custom-condition" alt-out-name="item3">
+    <display-name><![CDATA[Extent lease more than 3 days?]]></display-name>
+    <script encoded="false"><![CDATA[var timeLimit = oneDayTime * limitDays
+var currentDate = new Date();
+var requestedDate = new Date();
+requestedDate.setHours(currentDate.getHours() + hours)
+System.log(requestedDate)
+
+if(requestedDate.getTime() - deploymentCreatedTime.getTime() > timeLimit)
+{
+    System.log("More than 3 days")
+    return false
+}
+else
+{
+    System.log("Less than 3 days")
+    return true
+}]]></script>
+    <in-binding>
+      <bind name="deploymentCreatedTime" type="Date" export-name="deploymentCreatedTime"/>
+      <bind name="hours" type="number" export-name="hours"/>
+      <bind name="limitDays" type="number" export-name="limitDays"/>
+      <bind name="oneDayTime" type="number" export-name="oneDayTime"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="50.0" x="300.0"/>
+  </workflow-item>
+  <workflow-item name="item5" out-name="item6" type="task">
+    <display-name><![CDATA[Retrieve Request ID and Date]]></display-name>
+    <script encoded="false"><![CDATA[executeRequestId = System.getContext().getParameter("__metadata_requestId")
+if(executeRequestId == null || executeRequestId == "")
+{
+    throw "Unable to retrieve request ID"
+}
+
+
+var currentDate = new Date();
+requestedDate = new Date();
+requestedDate.setHours(currentDate.getHours() + hours)]]></script>
+    <in-binding>
+      <bind name="hours" type="number" export-name="hours"/>
+    </in-binding>
+    <out-binding>
+      <bind name="executeRequestId" type="string" export-name="executeRequestId"/>
+      <bind name="requestedDate" type="Date" export-name="requestedDate"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="400.0"/>
+  </workflow-item>
+  <workflow-item name="item6" out-name="item0" type="task" launched-workflow-id="078d5815-1e63-4469-8443-2c1b0ca54080">
+    <display-name><![CDATA[Extend Lease Time]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+var workflowToLaunch = Server.getWorkflowWithId("078d5815-1e63-4469-8443-2c1b0ca54080");
+if (workflowToLaunch == null) {
+	throw "Workflow not found";
+}
+
+var workflowParameters = new Properties();
+workflowParameters.put("executeRequestId",executeRequestId);
+workflowParameters.put("deploymentId",deploymentId);
+workflowParameters.put("requestedDate",requestedDate);
+wfToken = workflowToLaunch.execute(workflowParameters);
+]]></script>
+    <in-binding>
+      <bind name="executeRequestId" type="string" export-name="executeRequestId"/>
+      <bind name="deploymentId" type="string" export-name="deploymentId"/>
+      <bind name="requestedDate" type="Date" export-name="requestedDate"/>
+    </in-binding>
+    <out-binding>
+      <bind name="wfToken" type="WorkflowToken" export-name="wfToken"/>
+    </out-binding>
+    <description><![CDATA[Start an asynchronous workflow.]]></description>
+    <position y="60.0" x="540.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

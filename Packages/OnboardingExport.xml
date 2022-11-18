@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<package>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='339411e8-ae83-4318-8e0f-924d3456a591'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='com.vmware.pscoe.library.class.Class'&dunesName='Action'&name='Class'&category='com.vmware.pscoe.library.class']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='dd5cab37-7538-4e53-ae95-170e0cf872a6'&dunesName='Action'&name='getDeploymentVm'&category='com.vmware.pscoe.rba.migration']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='ed49e4bb-6b26-34c6-afe4-cb84d401a506'&dunesName='Action'&name='VROES'&category='com.vmware.pscoe.library.ecmascript']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='43c7a305-d765-412b-830a-386f0bfd52f0'&dunesName='Action'&name='getVra7Vm'&category='com.vmware.pscoe.rba.migration']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='961aee44-c2ea-3f7f-9cef-daf2e0bcb660'&dunesName='Action'&name='RestClient'&category='com.vmware.pscoe.library.rest']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='com.vmware.pscoe.library.logging.getLogger'&dunesName='Action'&name='getLogger'&category='com.vmware.pscoe.library.logging']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='com.vmware.pscoe.library.logging.Logger'&dunesName='Action'&name='Logger'&category='com.vmware.pscoe.library.logging']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='55f00eb6-1017-3c0e-a3aa-9345bb8a68f4'&dunesName='Action'&name='DefaultHostManagedAuth'&category='com.vmware.pscoe.library.rest.auth']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='cfa8ad97-0771-47b2-ba2c-81a920c19de2'&dunesName='Action'&name='constructVraApiFilter'&category='com.vmware.pscoe.rba.migration']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Action?id='1c9fffee-d054-4ca8-8dd7-c83c0689b883'&dunesName='Action'&name='updateMachineProperties'&category='com.vmware.pscoe.rba.migration']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='10019dbd-5751-457c-877a-7fbb9b01a3fe'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='0edfe01a-34a6-4ae9-8d9f-5103b95c14a5'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='e919a059-a810-41f4-9b5b-b7b004666278'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='e5841367-3ec8-4605-9c82-30b4a54750c7'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='63b02218-5f66-4f08-92cd-6d6524906d63'&dunesName='Workflow']]></elm>
+<elm src-category='null'><![CDATA[dunes://service.dunes.ch/Workflow?id='437f6953-d7d0-4524-820f-80f6d362bcae'&dunesName='Workflow']]></elm>
+<used-plugin name='REST' version='2.4.1' />
+</package>

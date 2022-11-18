@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="339411e8-ae83-4318-8e0f-924d3456a591" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Migration Set VM Properties ]]></display-name>
+  <error-handler name="item2" throw-bind-name="errorCode">
+    <position y="120.0" x="340.0"/>
+  </error-handler>
+  <position y="50.0" x="100.0"/>
+  <output>
+    <param name="virtualMachineEvent" type="string"/>
+    <param name="virtualMachineAddOrUpdateProperties" type="Properties"/>
+  </output>
+  <attrib name="vra7Tenant" type="string" read-only="false">
+    <value encoded="n"><![CDATA[RBA]]></value>
+  </attrib>
+  <attrib name="vra7Username" type="string" read-only="false">
+    <value encoded="n"><![CDATA[rba_tenant_admin@vsphere.local]]></value>
+  </attrib>
+  <attrib name="vra7Password" type="SecureString" read-only="false">
+    <value encoded="n"><![CDATA[8BR56K4DU77O61G72W65J31R21Z8520872Q4122184TA1AE160NE01971FKB1125F9IB445E38H157F53MFD89CDG6434248Y36BD6BBLFC29BEEXDB25D18HB9EEAE4HD989317M8BCAFD5P8A6B5A7K52EE351O3D8AF20YFB22351I4C2D82BT4E10E9AK2F57338VAEC4850PF7186ABV]]></value>
+  </attrib>
+  <attrib name="vra7RestHost" type="REST:RESTHost" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='24c2ca22-c397-4b11-95a2-effad96fe9e9'&dunesName='REST:RESTHost']]></value>
+  </attrib>
+  <attrib name="machine" type="Any" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="outputProps" type="Any" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="errorCode" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="vmId" type="string" read-only="false">
+    <value encoded="n"><![CDATA[vmId]]></value>
+  </attrib>
+  <attrib name="vRA7DepName" type="string" read-only="false">
+    <value encoded="n"><![CDATA[vRA7DepName]]></value>
+  </attrib>
+  <attrib name="statusCode" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="contentLength" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="headers" type="Properties" read-only="false">
+    <value encoded="n"><![CDATA[{}]]></value>
+  </attrib>
+  <attrib name="responseBody" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="840.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item3" catch-name="item2" throw-bind-name="errorCode" type="task">
+    <display-name><![CDATA[getProperties]]></display-name>
+    <script encoded="false"><![CDATA[var Class = System.getModule("com.vmware.pscoe.library.class").Class();
+var ResourceElementAccessor = Class.load("com.vmware.pscoe.library.util", "ResourceElementAccessor");
+var res = new ResourceElementAccessor("RBA v8/MigrationMapping", "VM Properties Mapping.json", false);
+var propsMapping = JSON.parse(res.getContent());
+//System.log("REG__VRA_Set_VMProp_EB / dePayloadPre propsMapping: " + JSON.stringify(propsMapping, null, 4));
+var machine = System.getModule("com.vmware.pscoe.rba.migration").getDeploymentVm();
+
+var vmName = machine.name;
+var vmId = machine.id;
+System.log("VMId: " + vmId);
+
+var vra7Vm = System.getModule("com.vmware.pscoe.rba.migration").getVra7Vm(vra7RestHost, vmName, vra7Tenant, vra7Username, vra7Password);
+var vRA7DepName = vra7Vm.parentResourceRef.label;
+System.log("vRA7DepName: " + vRA7DepName);
+
+
+outputProps = {};
+for (var propIndex in Object.keys(propsMapping)) {
+    var vra7Prop = Object.keys(propsMapping)[propIndex];
+    for (vmPropIndex in vra7Vm.resourceData.entries) {
+        var prop = vra7Vm.resourceData.entries[vmPropIndex];
+        if (prop.key == vra7Prop) {
+            outputProps[propsMapping[vra7Prop]] = prop.value.value;
+        }
+    }
+}
+
+System.log("The following Log must be filled with vRA7 VM Data. Uncomment Line 5 and line 16 if necessary to verify");
+System.log("Output props: " + JSON.stringify(outputProps, null, 4));
+
+
+
+
+
+
+
+/*
+outputProps = new(Properties);
+
+if (!!vra7Vm) {
+    var vRA7DepName = vra7Vm.parentResourceRef.label;
+    System.log("vRA7DepName: " + vRA7DepName);
+
+    for (vmPropIndex in vra7Vm.resourceData.entries) {
+        var prop = vra7Vm.resourceData.entries[vmPropIndex];
+        if (!!prop.value) {
+            outputProps.put(prop.key, prop.value.value);
+        }
+        else {
+            outputProps.put(prop.key, "null");
+        }
+
+
+    }
+}
+*/
+
+//System.log("REG__VRA_Set_VMProp_EB / dePayloadPre: " + JSON.stringify(vra7Vm, null, 4));
+
+]]></script>
+    <in-binding>
+      <bind name="vra7RestHost" type="REST:RESTHost" export-name="vra7RestHost"/>
+      <bind name="vra7Tenant" type="string" export-name="vra7Tenant"/>
+      <bind name="vra7Username" type="string" export-name="vra7Username"/>
+      <bind name="vra7Password" type="SecureString" export-name="vra7Password"/>
+    </in-binding>
+    <out-binding>
+      <bind name="machine" type="Any" export-name="machine"/>
+      <bind name="outputProps" type="Any" export-name="outputProps"/>
+      <bind name="vmId" type="string" export-name="vmId"/>
+      <bind name="vRA7DepName" type="string" export-name="vRA7DepName"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="160.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item4" type="task">
+    <display-name><![CDATA[BuildFailure]]></display-name>
+    <script encoded="false"><![CDATA[virtualMachineEvent = "BuildFailure";]]></script>
+    <in-binding/>
+    <out-binding>
+      <bind name="virtualMachineEvent" type="string" export-name="virtualMachineEvent"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="130.0" x="460.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item5" catch-name="item2" throw-bind-name="errorCode" type="task">
+    <display-name><![CDATA[Update Properties]]></display-name>
+    <script encoded="false"><![CDATA[// Update vRA VM Properties
+
+System.getModule("com.vmware.pscoe.rba.migration").updateMachineProperties(machine.id, outputProps);]]></script>
+    <in-binding>
+      <bind name="machine" type="Any" export-name="machine"/>
+      <bind name="outputProps" type="Any" export-name="outputProps"/>
+    </in-binding>
+    <out-binding>
+      <bind name="virtualMachineAddOrUpdateProperties" type="Properties" export-name="virtualMachineAddOrUpdateProperties"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="460.0"/>
+  </workflow-item>
+  <workflow-item name="item4" business-status="" throw-bind-name="errorCode" type="end" end-mode="1">
+    <in-binding/>
+    <position y="120.0" x="660.0"/>
+  </workflow-item>
+  <workflow-item name="item5" out-name="item0" type="link" linked-workflow-id="10019dbd-5751-457c-877a-7fbb9b01a3fe">
+    <display-name><![CDATA[Update-DeploymentByMachineID]]></display-name>
+    <in-binding>
+      <bind name="id" type="string" export-name="vmId"/>
+      <bind name="deploymentName" type="string" export-name="vRA7DepName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="statusCode" type="number" export-name="statusCode"/>
+      <bind name="contentLength" type="number" export-name="contentLength"/>
+      <bind name="headers" type="Properties" export-name="headers"/>
+      <bind name="responseBody" type="string" export-name="responseBody"/>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="60.0" x="640.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item1" object-name="workflow:name=generic" id="63b02218-5f66-4f08-92cd-6d6524906d63" version="0.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Update-MasterDeploymentName]]></display-name>
+  <position y="50.0" x="100.0"/>
+  <input>
+    <param name="id" type="string"/>
+    <param name="deploymentName" type="string"/>
+  </input>
+  <output>
+    <param name="statusCode" type="number"/>
+    <param name="contentLength" type="number"/>
+    <param name="headers" type="Properties"/>
+    <param name="responseBody" type="string"/>
+  </output>
+  <attrib name="apiToken" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="bearerToken" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="contentAsString" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="restBody" type="string" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="50.0" x="640.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="link" linked-workflow-id="0edfe01a-34a6-4ae9-8d9f-5103b95c14a5">
+    <display-name><![CDATA[Get-APIBearerToken]]></display-name>
+    <in-binding/>
+    <out-binding>
+      <bind name="statusCode" type="number" export-name="statusCode">
+        <description><![CDATA[Response status code]]></description>
+      </bind>
+      <bind name="contentLength" type="number" export-name="contentLength">
+        <description><![CDATA[Response content length]]></description>
+      </bind>
+      <bind name="headers" type="Properties" export-name="headers">
+        <description><![CDATA[Response headers]]></description>
+      </bind>
+      <bind name="contentAsString" type="string" export-name="apiToken">
+        <description><![CDATA[Response content as string]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="60.0" x="150.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item4" type="link" linked-workflow-id="e919a059-a810-41f4-9b5b-b7b004666278">
+    <display-name><![CDATA[Get-APIAccessToken]]></display-name>
+    <in-binding>
+      <bind name="bearer" type="string" export-name="apiToken">
+        <description><![CDATA[content]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="statusCode" type="number" export-name="">
+        <description><![CDATA[Response status code]]></description>
+      </bind>
+      <bind name="contentLength" type="number" export-name="">
+        <description><![CDATA[Response content length]]></description>
+      </bind>
+      <bind name="headers" type="Properties" export-name="">
+        <description><![CDATA[Response headers]]></description>
+      </bind>
+      <bind name="contentAsString" type="string" export-name="bearerToken">
+        <description><![CDATA[Response content as string]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="60.0" x="245.0"/>
+  </workflow-item>
+  <workflow-item name="item3" out-name="item0" type="link" linked-workflow-id="437f6953-d7d0-4524-820f-80f6d362bcae">
+    <display-name><![CDATA[Update-APIMasterDeployment]]></display-name>
+    <in-binding>
+      <bind name="id" type="string" export-name="id">
+        <description><![CDATA[id]]></description>
+      </bind>
+      <bind name="bearerToken" type="string" export-name="bearerToken"/>
+      <bind name="restBody" type="string" export-name="restBody"/>
+    </in-binding>
+    <out-binding>
+      <bind name="statusCode" type="number" export-name="statusCode">
+        <description><![CDATA[Response status code]]></description>
+      </bind>
+      <bind name="contentLength" type="number" export-name="contentLength">
+        <description><![CDATA[Response content length]]></description>
+      </bind>
+      <bind name="headers" type="Properties" export-name="headers">
+        <description><![CDATA[Response headers]]></description>
+      </bind>
+      <bind name="contentAsString" type="string" export-name="contentAsString">
+        <description><![CDATA[Response content as string]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="60.0" x="480.0"/>
+  </workflow-item>
+  <workflow-item name="item4" out-name="item3" type="task">
+    <display-name><![CDATA[Prep - REST Body]]></display-name>
+    <script encoded="false"><![CDATA[var reqBody = new Object();
+
+reqBody.name = deploymentName;
+restBody = JSON.stringify(reqBody);
+
+System.log(restBody);]]></script>
+    <in-binding>
+      <bind name="deploymentName" type="string" export-name="deploymentName"/>
+    </in-binding>
+    <out-binding>
+      <bind name="restBody" type="string" export-name="restBody"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="60.0" x="360.0"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

@@ -1,0 +1,422 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<workflow xmlns="http://vmware.com/vco/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://vmware.com/vco/workflow http://vmware.com/vco/workflow/Workflow-v4.xsd" root-name="item5" object-name="workflow:name=generic" id="117f44f1-7ab2-4eee-b1f9-7e63f022fc7b" version="1.0.0" api-version="6.0.0" allowed-operations="vfe" editor-version="2.0" restartMode="1" resumeFromFailedMode="0">
+  <display-name><![CDATA[Clone VM For New Blueprint]]></display-name>
+  <position y="120.0" x="50.0"/>
+  <input>
+    <param name="vmFolder" type="VC:VmFolder">
+      <description><![CDATA[the VM Folder to create the new VM in]]></description>
+    </param>
+    <param name="newVmName" type="string">
+      <description><![CDATA[the name of the VM to be created]]></description>
+    </param>
+    <param name="sourceVmUuid" type="string">
+      <description><![CDATA[the UUID of the source VM to help find it in the VC inventory]]></description>
+    </param>
+    <param name="snapshotName" type="string">
+      <description><![CDATA[snapshot name for linked clone purposes to be created on the cloned VM]]></description>
+    </param>
+    <param name="NsxtConfiguration" type="boolean"/>
+    <param name="linkedCloneConfiguration" type="boolean"/>
+  </input>
+  <attrib name="vm" type="VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="powerOn" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+  </attrib>
+  <attrib name="template" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+  </attrib>
+  <attrib name="datastore" type="VC:Datastore" read-only="false">
+    <value encoded="n"><![CDATA[dunes://service.dunes.ch/CustomSDKObject?id='atl-vra-vcsa.lab.local%2Cid:datastore-50'&dunesName='VC:Datastore']]></value>
+  </attrib>
+  <attrib name="host" type="VC:HostSystem" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="pool" type="VC:ResourcePool" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="thinProvisioned" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[true]]></value>
+  </attrib>
+  <attrib name="cloneTask" type="VC:Task" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="sleepTime" type="number" read-only="false">
+    <value encoded="n"><![CDATA[30.0]]></value>
+  </attrib>
+  <attrib name="newVM" type="VC:VirtualMachine" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="progress" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[true]]></value>
+  </attrib>
+  <attrib name="pollRate" type="number" read-only="false">
+    <value encoded="n"><![CDATA[10.0]]></value>
+  </attrib>
+  <attrib name="description" type="string" read-only="false">
+    <value encoded="n"><![CDATA[snapshot created via save to catalog automation]]></value>
+  </attrib>
+  <attrib name="memory" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+  </attrib>
+  <attrib name="quiesce" type="boolean" read-only="false">
+    <value encoded="n"><![CDATA[false]]></value>
+  </attrib>
+  <attrib name="snapshot" type="VC:VirtualMachineSnapshot" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="logicalSwitchName" type="string" read-only="false" conf-id="e147e593-b897-492b-bf82-d31fc1e22861" conf-key="templateNetwork">
+    <value encoded="n"><![CDATA[]]></value>
+    <description><![CDATA[a temporary logical switch which is needed to configure on the clones as there network as templates]]></description>
+  </attrib>
+  <attrib name="nicNumber" type="number" read-only="false">
+    <value encoded="n"><![CDATA[0.0]]></value>
+    <description><![CDATA[default first nic is place 0]]></description>
+  </attrib>
+  <attrib name="changeNicTask" type="VC:Task" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="actionResult" type="Any" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <attrib name="dvPortgroup" type="VC:DistributedVirtualPortgroup" read-only="false" conf-id="e147e593-b897-492b-bf82-d31fc1e22861" conf-key="template-port-group"/>
+  <attrib name="templateDatastores" type="Array/VC:Datastore" read-only="false">
+    <value encoded="n"><![CDATA[[124:VC:Datastore#dunes://service.dunes.ch/CustomSDKObject?id='atl-vra-vcsa.lab.local%2Cid:datastore-46'&dunesName='VC:Datastore',124:VC:Datastore#dunes://service.dunes.ch/CustomSDKObject?id='atl-vra-vcsa.lab.local%2Cid:datastore-49'&dunesName='VC:Datastore',124:VC:Datastore#dunes://service.dunes.ch/CustomSDKObject?id='atl-vra-vcsa.lab.local%2Cid:datastore-50'&dunesName='VC:Datastore']]]></value>
+  </attrib>
+  <attrib name="vmNicCount" type="number" read-only="false">
+    <value encoded="n"><![CDATA[]]></value>
+  </attrib>
+  <workflow-item name="item0" type="end" end-mode="0">
+    <in-binding/>
+    <position y="10.0" x="1740.0"/>
+  </workflow-item>
+  <workflow-item name="item1" out-name="item2" type="task" script-module="com.vmware.library.vc.basic/cloneVM">
+    <display-name><![CDATA[cloneVM]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.basic").cloneVM(vm,vmFolder,name,powerOn,template,datastore,host,pool,thinProvisioned);
+]]></script>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm">
+        <description><![CDATA[The Source Virtual Machine or Template for the Clone Operation]]></description>
+      </bind>
+      <bind name="vmFolder" type="VC:VmFolder" export-name="vmFolder">
+        <description><![CDATA[The location of the new virtual machine.]]></description>
+      </bind>
+      <bind name="name" type="string" export-name="newVmName">
+        <description><![CDATA[The name of the new virtual machine.]]></description>
+      </bind>
+      <bind name="powerOn" type="boolean" export-name="powerOn">
+        <description><![CDATA[Specifies whether or not the new VirtualMachine should be powered on after creation.]]></description>
+      </bind>
+      <bind name="template" type="boolean" export-name="template">
+        <description><![CDATA[Specifies whether or not the new virtual machine should be marked as a template.]]></description>
+      </bind>
+      <bind name="datastore" type="VC:Datastore" export-name="datastore">
+        <description><![CDATA[The datastore where the virtual machine should be located. If not specified, the current datastore is used. ]]></description>
+      </bind>
+      <bind name="host" type="VC:HostSystem" export-name="host">
+        <description><![CDATA[The datastore where the virtual machine should be located. If not specified, the current datastore is used.]]></description>
+      </bind>
+      <bind name="pool" type="VC:ResourcePool" export-name="pool">
+        <description><![CDATA[The resource pool to which this virtual machine should be attached.]]></description>
+      </bind>
+      <bind name="thinProvisioned" type="boolean" export-name="thinProvisioned">
+        <description><![CDATA[If true, the VM disk size unused are not reserved on the datastore]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="VC:Task" export-name="cloneTask"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="130.0" x="530.0"/>
+  </workflow-item>
+  <workflow-item name="item2" out-name="item23" type="task" script-module="com.vmware.library.vc.basic/vim3WaitTaskEnd">
+    <display-name><![CDATA[vim3WaitTaskEnd]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.basic").vim3WaitTaskEnd(task,progress,pollRate);
+]]></script>
+    <in-binding>
+      <bind name="task" type="VC:Task" export-name="cloneTask">
+        <description><![CDATA[Task to Wait for]]></description>
+      </bind>
+      <bind name="progress" type="boolean" export-name="progress">
+        <description><![CDATA[Log progess while waiting for the task]]></description>
+      </bind>
+      <bind name="pollRate" type="number" export-name="pollRate">
+        <description><![CDATA[Polling rate for the task state [seconds]]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="VC:VirtualMachine" export-name="newVM"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="130.0" x="660.0"/>
+  </workflow-item>
+  <workflow-item name="item5" out-name="item9" type="task" script-module="com.terasky.utils/getVcVmByUuid">
+    <display-name><![CDATA[Get Source Vm by UUID]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.terasky.utils").getVcVmByUuid(vmUuid);
+]]></script>
+    <in-binding>
+      <bind name="vmUuid" type="string" export-name="sourceVmUuid"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="VC:VirtualMachine" export-name="vm"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="130.0" x="140.0"/>
+  </workflow-item>
+  <workflow-item name="item7" prototype-id="sleep" out-name="item18" content-mode="x" type="task">
+    <display-name><![CDATA[Sleep]]></display-name>
+    <script encoded="false"><![CDATA[//Auto-generated script
+if ( sleepTime !== null )  {
+	System.sleep(sleepTime * 1000);
+}else  {
+	throw "'sleepTime' is NULL"; 
+}]]></script>
+    <in-binding>
+      <bind name="sleepTime" type="number" export-name="sleepTime">
+        <description><![CDATA[Time to sleep in seconds]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Sleep a given number of seconds.]]></description>
+    <position y="75.0" x="1180.0"/>
+  </workflow-item>
+  <workflow-item name="item8" out-name="item11" type="link" linked-workflow-id="BD80808080808080808080808080808053C180800122528313869552e41805bb1">
+    <display-name><![CDATA[Create a snapshot]]></display-name>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="newVM">
+        <description><![CDATA[Virtual machine of which to create a snapshot]]></description>
+      </bind>
+      <bind name="name" type="string" export-name="snapshotName">
+        <description><![CDATA[Snapshot name. The name need not be unique for this virtual machine.]]></description>
+      </bind>
+      <bind name="description" type="string" export-name="description">
+        <description><![CDATA[Snapshot description.]]></description>
+      </bind>
+      <bind name="memory" type="boolean" export-name="memory">
+        <description><![CDATA[If TRUE, the snapshot includes a dump of the internal state of the virtual machine (a memory dump). ]]></description>
+      </bind>
+      <bind name="quiesce" type="boolean" export-name="quiesce">
+        <description><![CDATA[If TRUE and the virtual machine is powered on when the snapshot is taken, VMware Tools are used to quiesce the file system in the virtual machine.]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="snapshot" type="VC:VirtualMachineSnapshot" export-name="snapshot">
+        <description><![CDATA[The snapshot created]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[ ]]></description>
+    <position y="20.0" x="1440.0"/>
+  </workflow-item>
+  <workflow-item name="item9" out-name="item22" type="task">
+    <display-name><![CDATA[Get Resource Pool From Source VM]]></display-name>
+    <script encoded="false"><![CDATA[System.debug("Cloning the VM " + vm.name + " now");
+
+// getting the resource pool of the source VM as this is needed for cloning
+pool = vm.resourcePool;
+
+if(pool == null)
+{
+    throw "error retrieving the relevant resource pool from the source VM"
+}]]></script>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm"/>
+    </in-binding>
+    <out-binding>
+      <bind name="pool" type="VC:ResourcePool" export-name="pool"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="130.0" x="270.0"/>
+  </workflow-item>
+  <workflow-item name="item10" out-name="item7" type="task">
+    <display-name><![CDATA[Logger]]></display-name>
+    <script encoded="false"><![CDATA[System.debug("Finished Cloning the vm " + vm.name);
+System.debug("Creating a snapshot for linked clone purposes on the new VM now");]]></script>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="75.0" x="1050.0"/>
+  </workflow-item>
+  <workflow-item name="item11" out-name="item0" type="task">
+    <display-name><![CDATA[Logger]]></display-name>
+    <script encoded="false"><![CDATA[System.debug("finished creating the needed snapshot on the vm " + vm.name);]]></script>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="20.0" x="1570.0"/>
+  </workflow-item>
+  <workflow-item name="item13" out-name="item21" type="task" script-module="com.vmware.library.vc.basic/vim3WaitTaskEnd">
+    <display-name><![CDATA[vim3WaitTaskEnd]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.basic").vim3WaitTaskEnd(task,progress,pollRate);
+]]></script>
+    <in-binding>
+      <bind name="task" type="VC:Task" export-name="changeNicTask">
+        <description><![CDATA[Task to Wait for]]></description>
+      </bind>
+      <bind name="progress" type="boolean" export-name="progress">
+        <description><![CDATA[Log progess while waiting for the task]]></description>
+      </bind>
+      <bind name="pollRate" type="number" export-name="pollRate">
+        <description><![CDATA[Polling rate for the task state [seconds]]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="Any" export-name="actionResult"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="161.42857142857142" x="1178.095238095238"/>
+  </workflow-item>
+  <workflow-item name="item16" out-name="item13" type="task" script-module="com.vmware.library.vc.networking/connectVmNicNumberToVirtualDistributedPortgroup">
+    <display-name><![CDATA[Change Port Group]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.vmware.library.vc.networking").connectVmNicNumberToVirtualDistributedPortgroup(vm,dvPortgroup,nicNumber);
+]]></script>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="newVM"/>
+      <bind name="dvPortgroup" type="VC:DistributedVirtualPortgroup" export-name="dvPortgroup"/>
+      <bind name="nicNumber" type="number" export-name="nicNumber"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="VC:Task" export-name="changeNicTask"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="130.0" x="1050.0"/>
+  </workflow-item>
+  <workflow-item name="item17" type="end" end-mode="0">
+    <in-binding/>
+    <position y="65.0" x="1740.0"/>
+  </workflow-item>
+  <workflow-item name="item18" out-name="item8" type="condition" alt-out-name="item20" comparator="0">
+    <display-name><![CDATA[Linked Clone or Full clone topology]]></display-name>
+    <script encoded="false"><![CDATA[// Generated by the system, cannot be edited
+return (linkedCloneConfiguration === true);]]></script>
+    <in-binding>
+      <bind name="linkedCloneConfiguration" type="boolean" export-name="linkedCloneConfiguration"/>
+    </in-binding>
+    <out-binding/>
+    <condition name="linkedCloneConfiguration" type="boolean" comparator="0" label="null"/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="65.0" x="1310.0"/>
+  </workflow-item>
+  <workflow-item name="item19" out-name="item17" type="task">
+    <display-name><![CDATA[Logger]]></display-name>
+    <script encoded="false"><![CDATA[System.debug("No snapshot created as this will be a full clone blueprint")]]></script>
+    <in-binding/>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="75.0" x="1570.0"/>
+  </workflow-item>
+  <workflow-item name="item20" out-name="item19" type="link" linked-workflow-id="BD80808080808080808080808080808093C380800122528313869552e41805bb1">
+    <display-name><![CDATA[Mark as template]]></display-name>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="newVM">
+        <description><![CDATA[Virtual machine to mark as template]]></description>
+      </bind>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[ ]]></description>
+    <position y="75.0" x="1440.0"/>
+  </workflow-item>
+  <workflow-item name="item21" out-name="item26" type="task">
+    <display-name><![CDATA[Configure NIC start Connected]]></display-name>
+    <script encoded="false"><![CDATA[var devices = newVM.config.hardware.device;  
+for (var i in devices) {  
+    if (!System.getModule("com.vmware.library.vc.vm.network").isSupportedNic(devices[i]))
+    {
+        continue;  
+    }
+  
+    var confSpec = new VcVirtualDeviceConfigSpec();  
+    confSpec.operation = VcVirtualDeviceConfigSpecOperation.edit;  
+    confSpec.device = devices[i];  
+    confSpec.device.connectable.startConnected = true;  // true/false to whether to connect the NIC at power on or not  
+  
+    var spec = new VcVirtualMachineConfigSpec();  
+    spec.deviceChange = [confSpec];  
+    newVM.reconfigVM_Task(spec);  
+}]]></script>
+    <in-binding>
+      <bind name="newVM" type="VC:VirtualMachine" export-name="newVM"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="199.52380952380952" x="1044.7619047619048"/>
+  </workflow-item>
+  <workflow-item name="item22" out-name="item1" type="task">
+    <display-name><![CDATA[Get Most Free Datastore]]></display-name>
+    <script encoded="false"><![CDATA[var freeSpace = 0
+for each(var templateDatastore in templateDatastores)
+{
+    if(templateDatastore.freeSpace > freeSpace)
+    {
+        freeSpace = templateDatastore.freeSpace
+        datastore = templateDatastore
+    }
+}
+System.log(datastore.name + "is the most free datastore: " + (datastore.freeSpace / 1024) + "MB")
+]]></script>
+    <in-binding>
+      <bind name="templateDatastores" type="Array/VC:Datastore" export-name="templateDatastores"/>
+    </in-binding>
+    <out-binding>
+      <bind name="datastore" type="VC:Datastore" export-name="datastore"/>
+    </out-binding>
+    <description><![CDATA[Simple task with custom script capability.]]></description>
+    <position y="130.0" x="400.0"/>
+  </workflow-item>
+  <workflow-item name="item23" out-name="item25" type="task" script-module="com.terasky.utils/getVmNicCount">
+    <display-name><![CDATA[getVmNicCount]]></display-name>
+    <script encoded="false"><![CDATA[//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.terasky.utils").getVmNicCount(vm);
+]]></script>
+    <in-binding>
+      <bind name="vm" type="VC:VirtualMachine" export-name="vm"/>
+    </in-binding>
+    <out-binding>
+      <bind name="actionResult" type="number" export-name="vmNicCount"/>
+    </out-binding>
+    <description><![CDATA[Add a note to the workflow schema.]]></description>
+    <position y="130.0" x="790.0"/>
+  </workflow-item>
+  <workflow-item name="item25" out-name="item16" type="custom-condition" alt-out-name="item10">
+    <display-name><![CDATA[Decision]]></display-name>
+    <script encoded="false"><![CDATA[if(nicNumber < vmNicCount)
+{
+    return true
+}
+return false]]></script>
+    <in-binding>
+      <bind name="vmNicCount" type="number" export-name="vmNicCount"/>
+      <bind name="nicNumber" type="number" export-name="nicNumber"/>
+    </in-binding>
+    <out-binding/>
+    <description><![CDATA[Custom decision based on a custom script.]]></description>
+    <position y="120.0" x="920.0"/>
+  </workflow-item>
+  <workflow-item name="item26" prototype-id="increase-counter" out-name="item25" content-mode="x" type="task">
+    <display-name><![CDATA[Increase counter]]></display-name>
+    <script encoded="false"><![CDATA[//Auto-generated script
+counter = counter + 1;]]></script>
+    <in-binding>
+      <bind name="counter" type="number" export-name="nicNumber">
+        <description><![CDATA[Item to increase]]></description>
+      </bind>
+    </in-binding>
+    <out-binding>
+      <bind name="counter" type="number" export-name="nicNumber">
+        <description><![CDATA[Increased item]]></description>
+      </bind>
+    </out-binding>
+    <description><![CDATA[Increment a counter by one.]]></description>
+    <position y="199.52380952380952" x="930.4761904761905"/>
+  </workflow-item>
+  <presentation/>
+</workflow>

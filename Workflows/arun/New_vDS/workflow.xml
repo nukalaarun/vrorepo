@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:workflow xmlns:ns2="http://vmware.com/vco/workflow" root-name="item1" object-name="workflow:name=generic" id="ee601c6a-be4d-43d6-aee7-4d3459f11702" editor-version="2.0" version="0.0.0" api-version="6.0.0" restartMode="1" resumeFromFailedMode="0">
+    <display-name>New_vDS</display-name>
+    <position y="50.0" x="100.0"/>
+    <input>
+        <param name="vDS_Name" type="string"/>
+        <param name="vDS_Version" type="string"/>
+        <param name="vCenter_Name" type="string"/>
+        <param name="vCenter_UserName" type="string"/>
+        <param name="Password" type="SecureString"/>
+        <param name="DC_Name" type="string"/>
+        <param name="MTU" type="string"/>
+    </input>
+    <output>
+        <param name="VDS" type="string"/>
+    </output>
+    <workflow-item name="item0" type="end" end-mode="0" comparator="0">
+        <in-binding/>
+        <out-binding/>
+        <position y="50.0" x="320.0"/>
+    </workflow-item>
+    <workflow-item name="item1" out-name="item0" type="task" script-module="com.arun.actions/new_VDS" comparator="0">
+        <display-name>new_VDS</display-name>
+        <script encoded="false">//Auto generated script, cannot be modified !
+actionResult = System.getModule("com.arun.actions").new_VDS(vdsname,vdsversion,vCentername,vCenterusername,Password,datacenter_name,mtu);
+</script>
+        <in-binding>
+            <bind name="vdsname" type="string" export-name="vDS_Name">
+                <description></description>
+            </bind>
+            <bind name="vdsversion" type="string" export-name="vDS_Version">
+                <description></description>
+            </bind>
+            <bind name="vCentername" type="string" export-name="vCenter_Name">
+                <description></description>
+            </bind>
+            <bind name="vCenterusername" type="string" export-name="vCenter_UserName">
+                <description></description>
+            </bind>
+            <bind name="Password" type="SecureString" export-name="Password">
+                <description></description>
+            </bind>
+            <bind name="datacenter_name" type="string" export-name="DC_Name">
+                <description></description>
+            </bind>
+            <bind name="mtu" type="string" export-name="MTU">
+                <description></description>
+            </bind>
+        </in-binding>
+        <out-binding>
+            <bind name="actionResult" type="string" export-name="VDS"/>
+        </out-binding>
+        <description>Add a note to the workflow schema.</description>
+        <position y="60.0" x="180.0"/>
+    </workflow-item>
+</ns2:workflow>

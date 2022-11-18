@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getProjectIdByName" result-type="string" api-version="6.0.0" id="1d858829-5976-4e83-87d5-34cb583b5cfc" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="projectName" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[pathUri = "/iaas/api/projects"
+var content = System.getModule("com.terasky.utils").vraGetOperation(pathUri);
+var content = JSON.parse(content)
+for each(var project in content.content)
+{
+    if(project.name.toLowerCase() == projectName.toLowerCase())
+    {
+        return project.id
+    }
+}
+throw "Unable to retrieve project id of: " + projectName]]></script>
+</dunes-script-module>

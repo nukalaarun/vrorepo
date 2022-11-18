@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="getMachineCustomProperties" result-type="Properties" api-version="6.0.0" id="8d4282ea-4df9-407c-a62b-b966cc8f3f12" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="resourceId" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[pathUri = "/iaas/api/machines/" + resourceId
+var payload = System.getModule("com.terasky.utils").vraGetOperation(pathUri);
+payload = JSON.parse(payload)
+return payload.customProperties]]></script>
+</dunes-script-module>

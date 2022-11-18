@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dunes-script-module name="executeOnboardingPlan" result-type="string" api-version="6.0.0" id="0e002a03-f115-45a0-9715-23c1034ab8fe" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
+  <param n="planLink" t="string"><![CDATA[]]></param>
+  <script encoded="false"><![CDATA[
+
+pathUri = "/relocation/api/wo/execute-plan"
+
+var payload = {
+    "planLink": planLink
+}
+
+var content = System.getModule("com.terasky.utils").vraPostOperation(pathUri,JSON.stringify(payload));
+System.debug(content)
+content = JSON.parse(content)
+return content.documentSelfLink
+
+]]></script>
+</dunes-script-module>
