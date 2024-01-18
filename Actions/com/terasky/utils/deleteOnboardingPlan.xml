@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dunes-script-module name="deleteOnboardingPlan" result-type="void" api-version="6.0.0" id="e3830676-7459-4c01-b173-2e6947013660" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
-  <param n="planLink" t="string"><![CDATA[]]></param>
-  <script encoded="false"><![CDATA[var content = System.getModule("com.terasky.utils").vraDeleteOperation(planLink);
-]]></script>
-</dunes-script-module>

@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dunes-script-module name="unlockOperation" result-type="void" api-version="6.0.0" id="e3a6daa8-e15a-408b-9f09-5a0f4aa34469" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
-  <param n="lockId" t="string"><![CDATA[]]></param>
-  <param n="lockOwner" t="string"><![CDATA[]]></param>
-  <script encoded="false"><![CDATA[LockingSystem.unlock(lockId,lockOwner)
-]]></script>
-</dunes-script-module>

@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dunes-script-module name="getDeploymentResources" result-type="Array/Properties" api-version="6.0.0" id="a2ed0c87-0786-40cb-bb7d-5f836344c85d" version="0.0.0" allowed-operations="vfe" category-name="com.terasky.utils">
-  <param n="deploymentId" t="string"><![CDATA[]]></param>
-  <script encoded="false"><![CDATA[pathUri = "/deployment/api/deployments/" + deploymentId + "/resources"
-var payload = System.getModule("com.terasky.utils").vraGetOperation(pathUri);
-payload = JSON.parse(payload)
-return payload.content]]></script>
-</dunes-script-module>
