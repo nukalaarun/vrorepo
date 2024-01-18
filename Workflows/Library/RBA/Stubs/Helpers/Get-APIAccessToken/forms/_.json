@@ -1,1 +1,0 @@
-{"schema":{"bearer":{"id":"bearer","type":{"dataType":"string"},"label":"bearer"}},"layout":{"pages":[{"id":"page_1","title":"Request content","sections":[{"id":"section_0","fields":[{"id":"bearer","display":"textField"}]}]}]},"itemId":""}
