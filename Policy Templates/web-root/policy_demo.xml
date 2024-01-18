@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dunes-policy name="policy_demo" type="0" api-version="6.0.0" id="41a6df59-b68f-449d-9af7-74cabcb04928" version="0.0.0">
-  <event type="OnInit" kind="trigger" active="false">
-    <workflow id="257d7f62-04f0-48bf-8eb3-fc4f9684ba96">
-      <in-bindings/>
-    </workflow>
-  </event>
-</dunes-policy>
